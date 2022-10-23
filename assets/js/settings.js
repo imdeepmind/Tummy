@@ -1,12 +1,30 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // settings fields
+  const name = document.getElementById("name");
+  const query = document.getElementById("query");
+
   const time = document.getElementById("time");
   const greetings = document.getElementById("greetings");
   const backgroundImage = document.getElementById("dynamicBackground");
   const modalForm = document.getElementById("modalForm");
+  const modal = document.getElementById("settingsModal");
 
+  const defaultSettings = {
+    name: "Human",
+    query: null,
+  };
+
+  setDefaultInputValue();
   getCurrentTime();
   getGreetings();
   getImageQuery();
+
+  function setDefaultInputValue() {
+    chrome.storage.sync.get(["name", "query"], function (result) {
+      name.value = result.name || defaultSettings.name;
+      query.value = result.query || defaultSettings.query;
+    });
+  }
 
   function getCurrentTime() {
     const currentTime = new Date().toLocaleTimeString([], {
@@ -21,7 +39,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function getGreetings() {
     chrome.storage.sync.get(["name"], function (result) {
-      const greetingsMessage = `Good Morning, ${result.name}`;
+      const greetingsMessage = `Good Morning, ${
+        result.name || defaultSettings.name
+      }`;
 
       greetings.innerHTML = greetingsMessage;
     });
@@ -29,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function getImageQuery() {
     chrome.storage.sync.get(["query"], function (result) {
-      const query = result.query;
+      const query = result.query || defaultSettings.query;
 
       if (query && query != "") {
         const queries = query.split(",").map((item) => item.trim());
@@ -63,6 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
     chrome.storage.sync.set(data, function () {
       getGreetings();
       getImageQuery();
+      setDefaultInputValue();
       modal.style.display = "none";
     });
   }
