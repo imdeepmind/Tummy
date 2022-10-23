@@ -1,7 +1,7 @@
 {
   "name": "Tummy",
   "version": "1.0.0",
-  "description": "A new image every time you open a new tab.",
+  "description": "A simple chrome extension replaces new tab pages with a personalized productive dashboard.",
   "manifest_version": 3,
   "chrome_url_overrides": {
     "newtab": "index.html"
