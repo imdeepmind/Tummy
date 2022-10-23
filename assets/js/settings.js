@@ -39,11 +39,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function getGreetings() {
     chrome.storage.sync.get(["name"], function (result) {
-      const greetingsMessage = `Good Morning, ${
+      const hour = new Date().getHours();
+      let greetingsMessage = "Good Morning";
+
+      if (hour < 5) {
+        greetingsMessage = "Good Evening";
+      } else if (hour < 12) {
+        greetingsMessage = "Good Morning";
+      } else if (hour < 17) {
+        greetingsMessage = "Good Afternoon";
+      } else {
+        greetingsMessage = "Good Evening";
+      }
+
+      const greetingsMessageCombined = `${greetingsMessage}, ${
         result.name || defaultSettings.name
       }`;
 
-      greetings.innerHTML = greetingsMessage;
+      greetings.innerHTML = greetingsMessageCombined;
     });
   }
 
