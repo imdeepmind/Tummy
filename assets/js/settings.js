@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // settings fields
   const name = document.getElementById("name");
   const query = document.getElementById("query");
+  const clock = document.getElementById("clock");
 
   const time = document.getElementById("time");
   const greetings = document.getElementById("greetings");
@@ -12,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const defaultSettings = {
     name: "Human",
     query: null,
+    clock: "12-hour",
   };
 
   setDefaultInputValue();
@@ -20,21 +22,25 @@ document.addEventListener("DOMContentLoaded", function () {
   getImageQuery();
 
   function setDefaultInputValue() {
-    chrome.storage.sync.get(["name", "query"], function (result) {
+    chrome.storage.sync.get(["name", "query", "clock"], function (result) {
       name.value = result.name || defaultSettings.name;
       query.value = result.query || defaultSettings.query;
+      clock.value = result.clock || defaultSettings.clock;
     });
   }
 
   function getCurrentTime() {
-    const currentTime = new Date().toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: true,
-    });
+    chrome.storage.sync.get(["clock"], function (result) {
+      const clockSettings = result.clock || defaultSettings.clock;
+      const currentTime = new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: clockSettings === "12-hour" ? true : false,
+      });
 
-    time.innerHTML = currentTime;
+      time.innerHTML = currentTime;
+    });
   }
 
   function getGreetings() {
@@ -90,10 +96,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const name = formData.get("name");
     const query = formData.get("query");
+    const clock = formData.get("clock");
 
-    const data = { name, query };
+    const data = { name, query, clock };
 
     chrome.storage.sync.set(data, function () {
+      getCurrentTime();
       getGreetings();
       getImageQuery();
       setDefaultInputValue();
