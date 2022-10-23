@@ -5,5 +5,6 @@
 - [ ] Initialize the settings form with current form
 - [ ] Make the Greetings message dynamic
 - [ ] Set default value for settings
+- [ ] Add settings for 24 hour clock
 - [ ] UI enhancements
 - [ ] Add TODO list

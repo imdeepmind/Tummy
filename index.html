@@ -13,6 +13,7 @@
     />
     <link href="./assets/css/theme.css" rel="stylesheet" />
     <script defer src="./assets/js/main.js"></script>
+    <script defer src="./assets/js/settings.js"></script>
     <style>
       .background-image {
         background-color: var(--black);
@@ -43,11 +44,11 @@
     </style>
   </head>
   <body>
-    <div class="background-image full-width">
+    <div class="background-image full-width" id="dynamicBackground">
       <div class="full-width background-overlay">
         <main class="flex-center flex-column">
-          <h1 class="time" style="text-transform: uppercase"></h1>
-          <h2 class="greetings"></h2>
+          <h1 id="time" style="text-transform: uppercase"></h1>
+          <h2 id="greetings"></h2>
           <form action="https://www.google.com/search" class="search-box">
             <button type="submit" class="btn-search">
               <img src="./assets/icons/search.svg" alt="search" />
