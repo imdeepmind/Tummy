@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Tab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <link href="./assets/css/theme.css" rel="stylesheet" />
+    <script defer src="./assets/js/main.js"></script>
+    <style>
+      .background-image {
+        background-color: var(--black);
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      .background-overlay {
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      main {
+        height: 100%;
+        width: 100%;
+      }
+
+      footer {
+        width: 100%;
+        position: absolute;
+        bottom: 0px;
+        z-index: 9999;
+        padding: 10px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="background-image full-width">
+      <div class="full-width background-overlay">
+        <main class="flex-center flex-column">
+          <h1 class="time" style="text-transform: uppercase"></h1>
+          <h2 class="greetings"></h2>
+          <form action="https://www.google.com/search" class="search-box">
+            <button type="submit" class="btn-search">
+              <img src="./assets/icons/search.svg" alt="search" />
+            </button>
+            <input
+              type="text"
+              name="q"
+              class="input-search"
+              placeholder="Type to Search..."
+              autocomplete="off"
+              autofocus
+            />
+          </form>
+        </main>
+
+        <footer>
+          <button id="settings" class="icon-button">
+            <img src="./assets/icons/settings.svg" alt="settings" />
+          </button>
+        </footer>
+      </div>
+    </div>
+
+    <div id="settingsModal" class="modal">
+      <div class="modal-content">
+        <div class="model-header flex-around">
+          <h2 style="margin-bottom: 20px">Settings</h2>
+          <button class="icon-button close">
+            <img src="./assets/icons/close.svg" alt="close" />
+          </button>
+        </div>
+
+        <form id="modalForm">
+          <div>
+            <label for="name">Name</label>
+            <br />
+            <input
+              type="text"
+              placeholder="Enter your name"
+              name="name"
+              id="name"
+              required
+              value="Human"
+              class="input-field"
+            />
+          </div>
+          <div>
+            <label for="query">Query</label>
+            <br />
+            <input
+              type="text"
+              placeholder="Enter image query"
+              name="query"
+              id="query"
+              value="Dark"
+              required
+              class="input-field"
+            />
+          </div>
+
+          <button type="submit" class="btn">Save</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
